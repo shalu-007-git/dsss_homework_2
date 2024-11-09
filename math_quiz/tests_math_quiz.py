@@ -1,5 +1,5 @@
 import unittest
-from math_quiz import function_A, function_B, function_C
+from math_quiz import select_integer, maths_operations, maths_result
 
 
 class TestMathGame(unittest.TestCase):
@@ -9,22 +9,31 @@ class TestMathGame(unittest.TestCase):
         min_val = 1
         max_val = 10
         for _ in range(1000):  # Test a large number of random values
-            rand_num = function_A(min_val, max_val)
+            rand_num = select_integer(min_val, max_val)
             self.assertTrue(min_val <= rand_num <= max_val)
 
     def test_function_B(self):
-        # TODO
-        pass
+        expected_operators = ['+', '-', '*']
+        for _ in range(100):
+            operator = maths_operations()
+            self.assertIn(operator, expected_operators, "Invalid operator returned by maths_operations")
+
 
     def test_function_C(self):
             test_cases = [
                 (5, 2, '+', '5 + 2', 7),
-                ''' TODO add more test cases here '''
+                (11, 4, '-', '11 - 4', 7),
+                (5, 2, '*', '5 * 2', 10),
+                (8, 1, '+', '8 + 1', 9)
+
             ]
 
             for num1, num2, operator, expected_problem, expected_answer in test_cases:
-                # TODO
-                pass
+                problem, answer = maths_result(num1, num2, operator)
+                self.assertEqual(problem, expected_problem,
+                                 f"Expected problem '{expected_problem}' but got '{problem}'")
+                self.assertEqual(answer, expected_answer, f"Expected answer '{expected_answer}' but got '{answer}'")
+
 
 if __name__ == "__main__":
     unittest.main()
